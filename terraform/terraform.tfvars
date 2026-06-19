@@ -1,4 +1,4 @@
-aws_region         = "us-west-2"
+aws_region         = "ap-south-1"
 cluster_name       = "bankapp-eks"
 cluster_version    = "1.35"
 node_instance_type = "t3.medium"
