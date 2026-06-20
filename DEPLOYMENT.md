@@ -100,7 +100,7 @@ kubectl get secret bankapp-tls -n bankapp
 
 ```bash
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
-helm repo update prometheus-community
+helm repo update                                 # "prometheus-community" removed from helm repo update prometheus-community
 
 helm install kube-prometheus prometheus-community/kube-prometheus-stack \
   -n monitoring \
