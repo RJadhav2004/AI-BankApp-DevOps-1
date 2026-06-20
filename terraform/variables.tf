@@ -7,7 +7,7 @@ variable "aws_region" {
 variable "cluster_name" {
   description = "Name of the EKS cluster"
   type        = string
-  default     = "bankapp-eks-2"
+  default     = "bankapp-eks-3"
 }
 
 variable "cluster_version" {
