@@ -2,5 +2,6 @@ aws_region         = "us-west-2"
 cluster_name       = "bankapp-eks-3"
 cluster_version    = "1.35"
 node_instance_type = "m7i-flex.large"
+node_mini_count    = 3
 node_desired_count = 3
-node_max_count     = 4
+node_max_count     = 5
