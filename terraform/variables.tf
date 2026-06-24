@@ -22,6 +22,12 @@ variable "node_instance_type" {
   default     = "m7i-flex.large"
 }
 
+variable "node_mini_count" {
+  description = "Desired number of worker nodes"
+  type        = number
+  default     = 3
+}
+
 variable "node_desired_count" {
   description = "Desired number of worker nodes"
   type        = number
@@ -31,5 +37,5 @@ variable "node_desired_count" {
 variable "node_max_count" {
   description = "Maximum number of worker nodes"
   type        = number
-  default     = 4
+  default     = 5
 }
