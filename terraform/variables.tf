@@ -23,7 +23,7 @@ variable "node_instance_type" {
 }
 
 variable "node_mini_count" {
-  description = "Desired number of worker nodes"
+  description = "mini number of worker nodes"
   type        = number
   default     = 3
 }
