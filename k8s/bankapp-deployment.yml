@@ -29,8 +29,8 @@ spec:
           command: ["/bin/sh", "-c", "until nc -z ollama-service 11434; do sleep 2; done"]
           resources:
             requests:
-              memory: "64Mi"
-              cpu: "100m"
+              memory: "128Mi"
+              cpu: "200m"
             limits:
               memory: "128Mi"
               cpu: "200m"
