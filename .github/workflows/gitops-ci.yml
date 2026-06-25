@@ -61,7 +61,7 @@ jobs:
           context: .
           push: true
           tags: |
-            ${{ env.DOCKERHUB_ }}:latest
+            ${{ env.DOCKERHUB_REPO }}:latest
             ${{ env.DOCKERHUB_REPO }}:${{ steps.tag.outputs.sha_short }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
