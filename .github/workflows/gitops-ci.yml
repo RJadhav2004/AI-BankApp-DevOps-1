@@ -1,3 +1,4 @@
+
 name: GitOps CI - Build & Push to DockerHub
 
 on:
@@ -76,3 +77,53 @@ jobs:
           git add k8s/bankapp-deployment.yml
           git diff --staged --quiet || git commit -m "ci: update bankapp image to ${{ steps.tag.outputs.sha_short }} [skip ci]"
           git push
+
+      # SUCCESS EMAIL
+      - name: Send Success Email
+        if: success()
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          secure: true
+          username: ${{ secrets.SMTP_USERNAME }}
+          password: ${{ secrets.SMTP_PASSWORD }}
+          subject: "✅ BankApp CI/CD Success"
+          to: ${{ secrets.EMAIL_TO }}
+          from: GitHub Actions
+          body: |
+            CI/CD Pipeline Completed Successfully
+
+            Repository: ${{ github.repository }}
+            Branch: ${{ github.ref_name }}
+            Commit: ${{ github.sha }}
+            Docker Image:
+            ${{ env.DOCKERHUB_REPO }}:${{ steps.tag.outputs.sha_short }}
+
+            ArgoCD will automatically sync the new image.
+
+            Workflow:
+            https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+      # FAILURE EMAIL
+      - name: Send Failure Email
+        if: failure()
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          secure: true
+          username: ${{ secrets.SMTP_USERNAME }}
+          password: ${{ secrets.SMTP_PASSWORD }}
+          subject: "❌ BankApp CI/CD Failed"
+          to: ${{ secrets.EMAIL_TO }}
+          from: GitHub Actions
+          body: |
+            CI/CD Pipeline Failed
+
+            Repository: ${{ github.repository }}
+            Branch: ${{ github.ref_name }}
+
+            Check logs:
+            https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+```
