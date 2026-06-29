@@ -1,4 +1,3 @@
-
 name: GitOps CI - Build & Push to DockerHub
 
 on:
