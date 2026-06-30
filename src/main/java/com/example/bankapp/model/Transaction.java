@@ -15,83 +15,181 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+/**
+ * Represents a banking transaction.
+ */
 @Entity
 @Table(name = "transactions")
 @SuppressFBWarnings(
         value = {"EI_EXPOSE_REP", "EI_EXPOSE_REP2"},
         justification = "JPA entity relationship")
-public class Transaction implements Serializable {
+public final class Transaction implements Serializable {
 
+    /**
+     * Serialization identifier.
+     */
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Precision for amount.
+     */
+    private static final int AMOUNT_PRECISION = 19;
+
+    /**
+     * Scale for amount.
+     */
+    private static final int AMOUNT_SCALE = 2;
+
+    /**
+     * Transaction identifier.
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, precision = 19, scale = 2)
+    /**
+     * Transaction amount.
+     */
+    @Column(
+            nullable = false,
+            precision = AMOUNT_PRECISION,
+            scale = AMOUNT_SCALE
+    )
     private BigDecimal amount;
 
+    /**
+     * Transaction type.
+     */
     @Column(nullable = false)
     private String type;
 
+    /**
+     * Transaction timestamp.
+     */
     @Column(nullable = false)
     private LocalDateTime timestamp;
 
+    /**
+     * Related account.
+     */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id")
     private Account account;
 
+    /**
+     * Default constructor.
+     */
     public Transaction() {
     }
 
+    /**
+     * Creates a transaction.
+     *
+     * @param transactionAmount amount
+     * @param transactionType type
+     * @param transactionTimestamp timestamp
+     * @param transactionAccount account
+     */
     public Transaction(
-            BigDecimal amount,
-            String type,
-            LocalDateTime timestamp,
-            Account account) {
-        this.amount = amount;
-        this.type = type;
-        this.timestamp = timestamp;
-        this.account = account;
+            final BigDecimal transactionAmount,
+            final String transactionType,
+            final LocalDateTime transactionTimestamp,
+            final Account transactionAccount) {
+
+        this.amount = transactionAmount;
+        this.type = transactionType;
+        this.timestamp = transactionTimestamp;
+        this.account = transactionAccount;
     }
 
+        /**
+     * Returns the transaction identifier.
+     *
+     * @return transaction identifier
+     */
     public Long getId() {
-        return id;
+        return this.id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    /**
+     * Sets the transaction identifier.
+     *
+     * @param transactionId transaction identifier
+     */
+    public void setId(final Long transactionId) {
+        this.id = transactionId;
     }
 
+    /**
+     * Returns the transaction amount.
+     *
+     * @return transaction amount
+     */
     public BigDecimal getAmount() {
-        return amount;
+        return this.amount;
     }
 
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
+    /**
+     * Sets the transaction amount.
+     *
+     * @param transactionAmount transaction amount
+     */
+    public void setAmount(final BigDecimal transactionAmount) {
+        this.amount = transactionAmount;
     }
 
+    /**
+     * Returns the transaction type.
+     *
+     * @return transaction type
+     */
     public String getType() {
-        return type;
+        return this.type;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    /**
+     * Sets the transaction type.
+     *
+     * @param transactionType transaction type
+     */
+    public void setType(final String transactionType) {
+        this.type = transactionType;
     }
 
+    /**
+     * Returns the transaction timestamp.
+     *
+     * @return transaction timestamp
+     */
     public LocalDateTime getTimestamp() {
-        return timestamp;
+        return this.timestamp;
     }
 
-    public void setTimestamp(LocalDateTime timestamp) {
-        this.timestamp = timestamp;
+    /**
+     * Sets the transaction timestamp.
+     *
+     * @param transactionTimestamp transaction timestamp
+     */
+    public void setTimestamp(
+            final LocalDateTime transactionTimestamp) {
+        this.timestamp = transactionTimestamp;
     }
 
+    /**
+     * Returns the associated account.
+     *
+     * @return account
+     */
     public Account getAccount() {
-        return account;
+        return this.account;
     }
 
-    public void setAccount(Account account) {
-        this.account = account;
+    /**
+     * Sets the associated account.
+     *
+     * @param transactionAccount account
+     */
+    public void setAccount(final Account transactionAccount) {
+        this.account = transactionAccount;
     }
-}
+    }
