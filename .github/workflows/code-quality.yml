@@ -23,8 +23,8 @@ jobs:
           java-version: ${{ matrix.java-version }}
           cache: maven
 
-   #   - name: Give execute permission
-     #   run: chmod +x mvnw
+      - name: Give execute permission
+        run: chmod +x mvnw
 
      # - name: Compile Project
       #  run: ./mvnw clean compile
