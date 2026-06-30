@@ -27,7 +27,7 @@ import java.util.List;
 public final class Account implements UserDetails {
 
     /**
-     * Balance precision.
+     * Precision for balance column.
      */
     private static final int BALANCE_PRECISION = 19;
 
@@ -51,20 +51,23 @@ public final class Account implements UserDetails {
     private String password;
 
     /**
-     * Current account balance.
+     * Account balance.
      */
-    @Column(nullable = false,
+    @Column(
+            nullable = false,
             precision = BALANCE_PRECISION,
-            scale = 2)
+            scale = 2
+    )
     private BigDecimal balance = BigDecimal.ZERO;
 
     /**
-     * Account transactions.
+     * Transactions associated with the account.
      */
     @OneToMany(
             mappedBy = "account",
             cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY)
+            fetch = FetchType.LAZY
+    )
     private List<Transaction> transactions = new ArrayList<>();
 
     /**
@@ -74,15 +77,17 @@ public final class Account implements UserDetails {
     }
 
     /**
-     * Creates an account.
+     * Parameterized constructor.
      *
-     * @param username account username
-     * @param password account password
+     * @param accountUsername account username
+     * @param accountPassword account password
      */
-    public Account(final String username,
-                   final String password) {
-        this.username = username;
-        this.password = password;
+    public Account(
+            final String accountUsername,
+            final String accountPassword) {
+
+        this.username = accountUsername;
+        this.password = accountPassword;
         this.balance = BigDecimal.ZERO;
     }
 
@@ -98,10 +103,10 @@ public final class Account implements UserDetails {
     /**
      * Sets account id.
      *
-     * @param id account id
+     * @param accountId account id
      */
-    public void setId(final Long id) {
-        this.id = id;
+    public void setId(final Long accountId) {
+        this.id = accountId;
     }
 
     /**
@@ -117,10 +122,10 @@ public final class Account implements UserDetails {
     /**
      * Sets username.
      *
-     * @param username username
+     * @param accountUsername username
      */
-    public void setUsername(final String username) {
-        this.username = username;
+    public void setUsername(final String accountUsername) {
+        this.username = accountUsername;
     }
 
     /**
@@ -136,16 +141,16 @@ public final class Account implements UserDetails {
     /**
      * Sets password.
      *
-     * @param password password
+     * @param accountPassword password
      */
-    public void setPassword(final String password) {
-        this.password = password;
+    public void setPassword(final String accountPassword) {
+        this.password = accountPassword;
     }
 
     /**
      * Returns account balance.
      *
-     * @return balance
+     * @return account balance
      */
     public BigDecimal getBalance() {
         return this.balance;
@@ -154,16 +159,16 @@ public final class Account implements UserDetails {
     /**
      * Sets account balance.
      *
-     * @param balance account balance
+     * @param accountBalance account balance
      */
-    public void setBalance(final BigDecimal balance) {
-        this.balance = balance;
+    public void setBalance(final BigDecimal accountBalance) {
+        this.balance = accountBalance;
     }
 
     /**
      * Returns transactions.
      *
-     * @return transaction list
+     * @return list of transactions
      */
     public List<Transaction> getTransactions() {
         return this.transactions;
@@ -172,15 +177,16 @@ public final class Account implements UserDetails {
     /**
      * Sets transactions.
      *
-     * @param transactions transaction list
+     * @param transactionList transaction list
      */
     public void setTransactions(
-            final List<Transaction> transactions) {
-        this.transactions = transactions;
+            final List<Transaction> transactionList) {
+
+        this.transactions = transactionList;
     }
 
     /**
-     * Returns authorities.
+     * Returns granted authorities.
      *
      * @return authorities
      */
