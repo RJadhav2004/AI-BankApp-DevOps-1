@@ -1,6 +1,15 @@
 package com.example.bankapp.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,101 +19,212 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * Represents a bank account entity.
+ */
 @Entity
 @Table(name = "accounts")
-public class Account implements UserDetails {
+public final class Account implements UserDetails {
 
+    /**
+     * Balance precision.
+     */
+    private static final int BALANCE_PRECISION = 19;
+
+    /**
+     * Account identifier.
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    /**
+     * Username.
+     */
     @Column(unique = true, nullable = false)
     private String username;
 
+    /**
+     * Password.
+     */
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false, precision = 19, scale = 2)
+    /**
+     * Current account balance.
+     */
+    @Column(nullable = false,
+            precision = BALANCE_PRECISION,
+            scale = 2)
     private BigDecimal balance = BigDecimal.ZERO;
 
-    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    /**
+     * Account transactions.
+     */
+    @OneToMany(
+            mappedBy = "account",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY)
     private List<Transaction> transactions = new ArrayList<>();
 
+    /**
+     * Default constructor.
+     */
     public Account() {
     }
 
-    public Account(String username, String password) {
+    /**
+     * Creates an account.
+     *
+     * @param username account username
+     * @param password account password
+     */
+    public Account(final String username,
+                   final String password) {
         this.username = username;
         this.password = password;
         this.balance = BigDecimal.ZERO;
     }
 
-    // Getters and setters
-
+    /**
+     * Returns account id.
+     *
+     * @return account id
+     */
     public Long getId() {
-        return id;
+        return this.id;
     }
 
-    public void setId(Long id) {
+    /**
+     * Sets account id.
+     *
+     * @param id account id
+     */
+    public void setId(final Long id) {
         this.id = id;
     }
 
+    /**
+     * Returns username.
+     *
+     * @return username
+     */
     @Override
     public String getUsername() {
-        return username;
+        return this.username;
     }
 
-    public void setUsername(String username) {
+    /**
+     * Sets username.
+     *
+     * @param username username
+     */
+    public void setUsername(final String username) {
         this.username = username;
     }
 
+    /**
+     * Returns password.
+     *
+     * @return password
+     */
     @Override
     public String getPassword() {
-        return password;
+        return this.password;
     }
 
-    public void setPassword(String password) {
+    /**
+     * Sets password.
+     *
+     * @param password password
+     */
+    public void setPassword(final String password) {
         this.password = password;
     }
 
+    /**
+     * Returns account balance.
+     *
+     * @return balance
+     */
     public BigDecimal getBalance() {
-        return balance;
+        return this.balance;
     }
 
-    public void setBalance(BigDecimal balance) {
+    /**
+     * Sets account balance.
+     *
+     * @param balance account balance
+     */
+    public void setBalance(final BigDecimal balance) {
         this.balance = balance;
     }
 
+    /**
+     * Returns transactions.
+     *
+     * @return transaction list
+     */
     public List<Transaction> getTransactions() {
-        return transactions;
+        return this.transactions;
     }
 
-    public void setTransactions(List<Transaction> transactions) {
+    /**
+     * Sets transactions.
+     *
+     * @param transactions transaction list
+     */
+    public void setTransactions(
+            final List<Transaction> transactions) {
         this.transactions = transactions;
     }
 
-    // UserDetails implementation
-
+    /**
+     * Returns authorities.
+     *
+     * @return authorities
+     */
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+        return List.of(
+                new SimpleGrantedAuthority("ROLE_USER"));
     }
 
+    /**
+     * Indicates whether account is non-expired.
+     *
+     * @return true
+     */
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
 
+    /**
+     * Indicates whether account is non-locked.
+     *
+     * @return true
+     */
     @Override
     public boolean isAccountNonLocked() {
         return true;
     }
 
+    /**
+     * Indicates whether credentials are non-expired.
+     *
+     * @return true
+     */
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
+    /**
+     * Indicates whether account is enabled.
+     *
+     * @return true
+     */
     @Override
     public boolean isEnabled() {
         return true;
