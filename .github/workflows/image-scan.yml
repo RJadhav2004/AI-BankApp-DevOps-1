@@ -3,6 +3,8 @@ name: Image Scan
 
 on:
   workflow_call:
+env:
+  DOCKERHUB_REPO: rjadhav20/ai-bankapp-eks
 
 jobs:
   image-scan:
