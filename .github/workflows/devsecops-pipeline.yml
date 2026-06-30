@@ -16,7 +16,7 @@ jobs:
     dependency-scan:
         uses: ./.github/workflows/dependency-scan.yml
     
-    docker-scan:
+    docker-lint:
         uses: ./.github/workflows/docker-lint.yml
 
     tests:
