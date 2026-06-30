@@ -8,20 +8,44 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+/**
+ * Spring Security configuration.
+ */
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig {
+public final class SecurityConfig {
 
+    /**
+     * Configures the security filter chain.
+     *
+     * @param http the HTTP security configuration
+     * @return configured security filter chain
+     * @throws Exception if configuration fails
+     */
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(
+            final HttpSecurity http)
+            throws Exception {
+
         http
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/register", "/login", "/css/**", "/js/**", "/actuator/**").permitAll()
-                .anyRequest().authenticated()
+                .requestMatchers(
+                    "/register",
+                    "/login",
+                    "/css/**",
+                    "/js/**",
+                    "/actuator/**"
+                )
+                .permitAll()
+                .anyRequest()
+                .authenticated()
             )
             .formLogin(form -> form
                 .loginPage("/login")
-                .defaultSuccessUrl("/dashboard", true)
+                .defaultSuccessUrl(
+                    "/dashboard",
+                    true
+                )
                 .permitAll()
             )
             .logout(logout -> logout
@@ -33,6 +57,11 @@ public class SecurityConfig {
         return http.build();
     }
 
+    /**
+     * Creates the password encoder bean.
+     *
+     * @return password encoder
+     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
