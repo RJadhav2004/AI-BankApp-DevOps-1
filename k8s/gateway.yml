@@ -23,7 +23,7 @@ spec:
     # the challenge, so allowedRoutes must permit all namespaces.
     - name: http
       protocol: HTTP
-      port:                   # temporory port 80 removed
+      port: 80               # temporory port 80 removed
       allowedRoutes:
         namespaces:
           from: All
