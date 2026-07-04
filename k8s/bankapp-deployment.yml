@@ -47,11 +47,11 @@ spec:
                 name: bankapp-secret
           resources:
             requests:
-              memory: "Mi"
-              cpu: "m"
+              memory: "8Mi"
+              cpu: "10m"
             limits:
-              memory: "Mi"
-              cpu: "m"
+              memory: "8Mi"
+              cpu: "18m"
           readinessProbe:
             httpGet:
               path: /actuator/health
