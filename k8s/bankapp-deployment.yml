@@ -53,6 +53,10 @@ spec:
               memory: "512Mi"
               cpu: "500m"
           readinessProbe:
+            
+            exec:
+              command: ["/bin/sh", "-c", "exit 1"]
+
             httpGet:
               path: /wrong-health
               port: 9999
