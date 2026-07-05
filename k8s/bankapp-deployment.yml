@@ -53,19 +53,16 @@ spec:
               memory: "512Mi"
               cpu: "500m"
           readinessProbe:
-            
-            exec:
-              command: ["/bin/sh", "-c", "exit 1"]
 
             httpGet:
-              path: /wrong-health
-              port: 9999
+              path: /actuator/health
+              port: 8080
             initialDelaySeconds: 30
             failureThreshold: 15
           livenessProbe:
             httpGet:
-              path: /wrong-health
-              port: 9999
+              path: /actuator/health
+              port: 8080
             initialDelaySeconds: 60
             periodSeconds: 10
             failureThreshold: 5
