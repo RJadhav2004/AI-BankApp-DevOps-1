@@ -55,13 +55,13 @@ spec:
           readinessProbe:
             httpGet:
               path: /wrong-health
-              port: 8080
+              port: 9999
             initialDelaySeconds: 30
             failureThreshold: 15
           livenessProbe:
             httpGet:
               path: /wrong-health
-              port: 8080
+              port: 9999
             initialDelaySeconds: 60
             periodSeconds: 10
             failureThreshold: 5
