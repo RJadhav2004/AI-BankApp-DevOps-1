@@ -60,7 +60,7 @@ spec:
             failureThreshold: 15
           livenessProbe:
             httpGet:
-              path: /actuator/health
+              path: /wrong-health
               port: 8080
             initialDelaySeconds: 60
             periodSeconds: 10
