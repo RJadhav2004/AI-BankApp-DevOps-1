@@ -54,7 +54,7 @@ spec:
               cpu: "500m"
           readinessProbe:
             httpGet:
-              path: /actuator/health
+              path: /wrong-health
               port: 8080
             initialDelaySeconds: 30
             failureThreshold: 15
