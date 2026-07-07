@@ -32,7 +32,7 @@ spec:
     clientIP:
       timeoutSeconds: 3600
   selector:
-    app: bankapp-eks
+    app: bankapp
   ports:
     - port: 8080
       targetPort: 8080
